@@ -57,10 +57,8 @@ class NetworkConnectionRetriesTest < Test::Unit::TestCase
   end
 
   def test_ssl_errors_raise_correctly
-    exceptions = [OpenSSL::SSL::SSLError]
-    if RUBY_VERSION >= '2.1.0'
-      exceptions += [OpenSSL::SSL::SSLErrorWaitWritable, OpenSSL::SSL::SSLErrorWaitReadable]
-    end
+    exceptions = [OpenSSL::SSL::SSLError, OpenSSL::SSL::SSLErrorWaitWritable,
+                  OpenSSL::SSL::SSLErrorWaitReadable]
 
     exceptions.each do |exception|
       raised = assert_raises(ActiveMerchant::ConnectionError) do
